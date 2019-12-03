@@ -35,7 +35,10 @@ import "github.com/desertjinn/freshsales"
         "key": "value", 
         "the customer": "properties",
     }   
-    analytics.Identify(identifier, properties)
+    err := analytics.Identify(identifier, properties)
+    if err != nil {
+        fmt.Println(err)
+    }
 ```
 **track** an Event
 ```go
@@ -47,7 +50,10 @@ import "github.com/desertjinn/freshsales"
         "key": "value", 
         "the event": "properties",
     }   
-    analytics.TrackEvent(identifier, properties)
+    err := analytics.TrackEvent(identifier, properties)
+    if err != nil {
+        fmt.Println(err)
+    }
 ```
 **track** a Page View
 ```go
@@ -56,5 +62,8 @@ import "github.com/desertjinn/freshsales"
     
     identifier := "your customer's unique identifier"
     url := "the page viewed"
-    analytics.TrackPageView(identifier, url)
+    err := analytics.TrackPageView(identifier, url)
+    if err != nil {
+        fmt.Println(err)
+    }
 ```
