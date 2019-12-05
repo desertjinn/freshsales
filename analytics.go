@@ -51,7 +51,10 @@ func (analytics *Analytics) validate(action string, data map[string]interface{})
 func (analytics *Analytics) post(action string, data map[string]interface{}) (err error){
 	if err = analytics.validate(action, data); err == nil {
 		data[TokenKey] = analytics.Token
-		data[SdkKey] = "golang"
+		// invalid SDK key causes rejection when calling tracking endpoints. switching 
+		// to 'python' to test access
+		// data[SdkKey] = "golang"
+		data[SdkKey] = "python"
 		path := fmt.Sprintf("%s/track/%s", analytics.Domain, action)
 		err = request(http.MethodPost, path, data)
 	}
