@@ -29,6 +29,9 @@ func request(method string, path string, data map[string]interface{}) (err error
 		}
 	}
 	if err == nil && request != nil {
+		if data[TokenKey] != nil {
+			request.Header.Set("Authorization", fmt.Sprintf("Token token=%v", data[TokenKey]))	
+		}
 		request.Header.Set("content-type", "application/json")
 		request.Header.Set("accept", "application/json")
 		client := http.Client{Timeout: 60 * time.Second}
