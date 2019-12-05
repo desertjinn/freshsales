@@ -23,6 +23,7 @@ func request(method string, path string, data map[string]interface{}) (err error
 		var payload []byte
 		if data != nil {
 			payload, err = json.Marshal(data)
+			fmt.Println(fmt.Sprintf("The payload: %v", payload))
 		}
 		if err == nil {
 			request, err = http.NewRequest(http.MethodGet, path, bytes.NewBuffer(payload))
