@@ -27,7 +27,7 @@ func request(method string, path string, data map[string]interface{}) (err error
 		}
 		fmt.Println(fmt.Sprintf("The path: %v", path))
 		if err == nil {
-			request, err = http.NewRequest(http.MethodGet, path, nil)
+			request, err = http.NewRequest(http.MethodGet, path, bytes.NewBuffer(payload))
 		}
 	}
 	if err == nil && request != nil {
