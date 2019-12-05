@@ -32,6 +32,7 @@ func request(method string, path string, data map[string]interface{}) (err error
 		request.Header.Set("content-type", "application/json")
 		request.Header.Set("accept", "application/json")
 		client := http.Client{Timeout: 60 * time.Second}
+		fmt.Println(fmt.Sprintf("The request: %v", request))
 		if response, err = client.Do(request); err == nil {
 			if response == nil {
 				err = errors.New("freshsales did not respond to request")
