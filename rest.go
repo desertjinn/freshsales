@@ -15,18 +15,19 @@ func request(method string, path string, data map[string]interface{}) (err error
 	var (
 		request *http.Request
 		response *http.Response
+		payload []byte
 	)
 	switch strings.ToUpper(method) {
 	case http.MethodGet:
 		request, err = http.NewRequest(http.MethodGet, path, nil)
 	case http.MethodPost:
-		var payload []byte
 		if data != nil {
 			payload, err = json.Marshal(data)
 			fmt.Println(fmt.Sprintf("The payload: %v", bytes.NewBuffer(payload)))
 		}
+		fmt.Println(fmt.Sprintf("The path: %v", path))
 		if err == nil {
-			request, err = http.NewRequest(http.MethodGet, path, bytes.NewBuffer(payload))
+			request, err = http.NewRequest(http.MethodGet, path, nil)
 		}
 	}
 	if err == nil && request != nil {
@@ -40,6 +41,7 @@ func request(method string, path string, data map[string]interface{}) (err error
 				err = errors.New("freshsales did not respond to request")
 			} else {
 				if response.StatusCode != 200 {
+					fmt.Println(fmt.Sprintf("The response: %v", response))
 					err = errors.New(fmt.Sprintf("freshsales responded with the status code of %d",
 						response.StatusCode))
 				}
